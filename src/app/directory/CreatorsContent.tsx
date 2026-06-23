@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef, Suspense } from 'react';
 import creatorsData from '@/data/creators.json';
-import { FaTimes, FaYoutube, FaTwitter, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTiktok, FaGlobe } from 'react-icons/fa';
+import { FaTimes, FaYoutube, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTiktok, FaGlobe } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { Spinner } from '@/components/ui/spinner';
 import { FiChevronDown, FiCheck } from 'react-icons/fi';
 import { IoLanguageOutline } from "react-icons/io5";
@@ -59,7 +60,7 @@ function LanguageFilterDropdown({ selectedLanguage, setSelectedLanguage }: { sel
                                     className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors ${
                                         selectedLanguage === lang 
                                             ? 'bg-blue-500/20 text-blue-400 font-medium' 
-                                            : 'text-fill-color/70 hover:bg-white/5 hover:text-fill-color'
+                                            : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
                                     }`}
                                 >
                                     <span>{lang === 'All' ? 'All Languages' : lang}</span>
@@ -122,7 +123,7 @@ function CreatorsContentInner() {
   const renderSocialIcon = (key: string, url: string) => {
     switch (key) {
       case 'youtube': return <a key={key} href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="opacity-70 hover:opacity-100 transition-opacity text-fill-color"><FaYoutube className="w-5 h-5" /></a>;
-      case 'twitter': return <a key={key} href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="opacity-70 hover:opacity-100 transition-opacity text-fill-color"><FaTwitter className="w-5 h-5" /></a>;
+      case 'twitter': return <a key={key} href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="opacity-70 hover:opacity-100 transition-opacity text-fill-color"><FaXTwitter className="w-5 h-5" /></a>;
       case 'instagram': return <a key={key} href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="opacity-70 hover:opacity-100 transition-opacity text-fill-color"><FaInstagram className="w-5 h-5" /></a>;
       case 'github': return <a key={key} href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="opacity-70 hover:opacity-100 transition-opacity text-fill-color"><FaGithub className="w-5 h-5" /></a>;
       case 'discord': return <a key={key} href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="opacity-70 hover:opacity-100 transition-opacity text-fill-color"><FaDiscord className="w-5 h-5" /></a>;
