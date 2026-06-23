@@ -12,7 +12,7 @@ import Pagination from '@/components/Pagination';
 
 const ITEMS_PER_PAGE = 8;
 
-const categories = ['3D', 'AI', 'All', 'Game Dev', 'Design', 'Editing', 'Audio', 'Machine Learning', 'Fullstack'];
+const categories = ['3D', 'AI', 'All', 'Game Dev', 'Design', 'Editing', 'Audio', 'Machine Learning', 'Fullstack', 'Cyber Security'];
 const languages = ['All', 'EN', 'ID', 'CN', 'JP'];
 
 const socialOrder = ['website', 'youtube', 'twitter', 'instagram', 'discord', 'telegram', 'github', 'tiktok'];
@@ -176,7 +176,7 @@ function CreatorsContentInner() {
           </div>
           
           {/* Categories Buttons */}
-          <div className="flex flex-wrap justify-center items-center gap-2 mb-10 w-full max-w-4xl">
+          <div className="flex flex-wrap justify-center items-center gap-2 mb-10 w-full max-w-4xl md:max-w-6xl">
               {categories.map((category) => (
                   <button
                       key={category}
