@@ -9,7 +9,12 @@
     "youtube": "https://youtube.com",
     "twitter": "https://x.com",
     "github": "https://github.com",
-    "website": "https://example.com"
+    "website": "https://example.com",
+    "fiverr": "https://fiverr.com",
+    "upwork": "https://upwork.com",
+    "peopleperhour": "https://peopleperhour.com",
+    "freelancer": "https://freelancer.com",
+    "openToWork": true
   },
   {
     "id": "2",
@@ -21,7 +26,9 @@
     "youtube": "",
     "twitter": "https://x.com",
     "github": "",
-    "website": ""
+    "website": "",
+    "upwork": "https://upwork.com",
+    "openToWork": false
   },
   {
     "id": "3",
@@ -33,7 +40,10 @@
     "youtube": "https://youtube.com",
     "twitter": "",
     "github": "https://github.com",
-    "website": "https://example.com"
+    "website": "https://example.com",
+    "fiverr": "https://fiverr.com",
+    "freelancer": "https://freelancer.com",
+    "openToWork": true
   },
   {
     "id": "4",
@@ -45,7 +55,9 @@
     "youtube": "https://youtube.com",
     "twitter": "",
     "github": "",
-    "website": "https://example.com"
+    "website": "https://example.com",
+    "peopleperhour": "https://peopleperhour.com",
+    "openToWork": false
   },
   {
     "id": "5",
@@ -57,7 +69,11 @@
     "youtube": "https://youtube.com",
     "twitter": "https://x.com",
     "github": "",
-    "website": ""
+    "website": "",
+    "fiverr": "https://fiverr.com",
+    "upwork": "https://upwork.com",
+    "peopleperhour": "https://peopleperhour.com",
+    "freelancer": "https://freelancer.com"
   },
   {
     "id": "6",
@@ -69,7 +85,10 @@
     "youtube": "",
     "twitter": "https://x.com",
     "github": "",
-    "website": "https://example.com"
+    "website": "https://example.com",
+    "upwork": "https://upwork.com",
+    "freelancer": "https://freelancer.com",
+    "openToWork": true
   },
   {
     "id": "7",
@@ -81,7 +100,10 @@
     "youtube": "https://youtube.com",
     "twitter": "",
     "github": "https://github.com",
-    "website": ""
+    "website": "",
+    "fiverr": "https://fiverr.com",
+    "peopleperhour": "https://peopleperhour.com",
+    "openToWork": false
   },
   {
     "id": "8",
@@ -93,7 +115,8 @@
     "youtube": "https://youtube.com",
     "twitter": "https://x.com",
     "github": "",
-    "website": "https://example.com"
+    "website": "https://example.com",
+    "openToWork": true
   },
   {
     "id": "9",
@@ -105,7 +128,10 @@
     "youtube": "https://youtube.com",
     "twitter": "",
     "github": "https://github.com",
-    "website": ""
+    "website": "",
+    "upwork": "https://upwork.com",
+    "peopleperhour": "https://peopleperhour.com",
+    "openToWork": false
   },
   {
     "id": "10",
@@ -117,6 +143,32 @@
     "youtube": "https://youtube.com",
     "twitter": "https://x.com",
     "github": "",
-    "website": "https://example.com"
+    "website": "https://example.com",
+    "fiverr": "https://fiverr.com",
+    "freelancer": "https://freelancer.com"
+  },
+  {
+    "id": "11",
+    "name": "WLOP",
+    "description": "Digital artist known for GhostBlade. Creates stunning fantasy illustrations and speed painting tutorials.",
+    "imageUrl": "https://i.pinimg.com/736x/b0/0c/99/b00c99faa09b9315c78e63067586d974.jpg",
+    "category": "Artist",
+    "language": "CN",
+    "youtube": "https://youtube.com",
+    "twitter": "https://x.com",
+    "instagram": "https://instagram.com",
+    "openToWork": false
+  },
+  {
+    "id": "12",
+    "name": "Ross Draws",
+    "description": "Character designer and illustrator making energetic and colorful art tutorials and creative vlogs.",
+    "imageUrl": "https://i.pinimg.com/736x/b0/0c/99/b00c99faa09b9315c78e63067586d974.jpg",
+    "category": "Artist",
+    "language": "EN",
+    "youtube": "https://youtube.com",
+    "instagram": "https://instagram.com",
+    "fiverr": "https://fiverr.com",
+    "openToWork": true
   }
 ]
