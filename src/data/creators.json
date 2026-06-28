@@ -28,7 +28,7 @@
     "github": "",
     "website": "",
     "upwork": "https://upwork.com",
-    "openToWork": false
+    "openToWork": true
   },
   {
     "id": "3",
@@ -169,6 +169,49 @@
     "youtube": "https://youtube.com",
     "instagram": "https://instagram.com",
     "fiverr": "https://fiverr.com",
+    "openToWork": true
+  },
+  {
+    "id": "13",
+    "name": "Web3 Builder",
+    "description": "A blockchain enthusiast sharing tutorials on smart contracts, DApps, and decentralized finance.",
+    "imageUrl": "https://i.pinimg.com/736x/b0/0c/99/b00c99faa09b9315c78e63067586d974.jpg",
+    "category": "Web3",
+    "language": "EN",
+    "youtube": "https://youtube.com",
+    "twitter": "https://x.com",
+    "openToWork": true
+  },
+  {
+    "id": "14",
+    "name": "Crypto Dev ID",
+    "description": "Indonesian web3 developer focusing on Ethereum development and solidity best practices.",
+    "imageUrl": "https://i.pinimg.com/736x/b0/0c/99/b00c99faa09b9315c78e63067586d974.jpg",
+    "category": "Web3",
+    "language": "ID",
+    "github": "https://github.com",
+    "twitter": "https://x.com",
+    "openToWork": false
+  },
+  {
+    "id": "15",
+    "name": "Gadget Guru",
+    "description": "Reviewing the latest tech gadgets, smartphones, and PC hardware with in-depth analysis.",
+    "imageUrl": "https://i.pinimg.com/736x/b0/0c/99/b00c99faa09b9315c78e63067586d974.jpg",
+    "category": "Gadget",
+    "language": "EN",
+    "youtube": "https://youtube.com",
+    "instagram": "https://instagram.com"
+  },
+  {
+    "id": "16",
+    "name": "Tech Reviewer JP",
+    "description": "Japanese content creator unboxing and reviewing cutting-edge gadgets and consumer electronics.",
+    "imageUrl": "https://i.pinimg.com/736x/b0/0c/99/b00c99faa09b9315c78e63067586d974.jpg",
+    "category": "Gadget",
+    "language": "JP",
+    "youtube": "https://youtube.com",
+    "twitter": "https://x.com",
     "openToWork": true
   }
 ]

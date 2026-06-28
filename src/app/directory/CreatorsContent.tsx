@@ -13,9 +13,9 @@ import { IoLanguageOutline } from "react-icons/io5";
 import { FallbackImage } from '@/components/FallbackImage';
 import Pagination from '@/components/Pagination';
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 9;
 
-const categories = ['3D', 'AI', 'All', 'Game Dev', 'Design', 'Artist', 'Editing', 'Audio', 'Machine Learning', 'Fullstack', 'Cyber Security'];
+const categories = ['3D', 'AI', 'All', 'Game Dev', 'Web3', 'Design', 'Artist', 'Editing', 'Audio', 'Gadget', 'Machine Learning', 'Fullstack', 'Cyber Security'];
 const languages = ['All', 'EN', 'ID', 'CN', 'JP'];
 
 const socialOrder = ['website', 'youtube', 'twitter', 'instagram', 'discord', 'telegram', 'github', 'tiktok', 'fiverr', 'upwork', 'peopleperhour', 'freelancer'];
@@ -218,7 +218,7 @@ function CreatorsContentInner() {
                 </div>
 
                 {/* Categories Buttons */}
-                <div className="flex flex-wrap justify-center items-center gap-2 mb-10 w-full max-w-4xl md:max-w-6xl">
+                <div className="flex flex-wrap justify-center items-center gap-2 mb-10 w-full md:max-w-3xl">
                     {categories.map((category) => (
                         <button
                             key={category}
@@ -241,7 +241,7 @@ function CreatorsContentInner() {
                 ) : (
                     <div className="flex flex-col gap-4 w-full items-center">
                         {/* Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-7xl">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full max-w-7xl">
                             {displayedCreators.length > 0 ? (
                                 displayedCreators.map(creator => {
                                     const { id, name, description, imageUrl, category, language, ...socialKeys } = creator;
@@ -264,25 +264,25 @@ function CreatorsContentInner() {
                                                     />
                                                 </div>
 
-                                                <div className="flex flex-col flex-grow min-w-0 justify-between py-0.5">
-                                                    <div className="flex items-start justify-between gap-2 mb-2">
+                                                <div className="flex flex-col flex-grow min-w-0 justify-center py-0.5">
+                                                    <div className="flex items-center gap-2 mb-2">
                                                         <h3 className="text-lg font-bold text-fill-color leading-tight truncate">
                                                             {creator.name}
                                                         </h3>
-                                                        <div className="text-xs font-bold text-fill-color/50 bg-card-color px-2 py-1 rounded-md border border-color shadow-sm shrink-0 leading-none">
-                                                            {creator.language}
-                                                        </div>
                                                     </div>
-                                                    <div className="flex flex-wrap items-center gap-2">
-                                                        <span className="text-[10px] px-2 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 leading-none">
+                                                    <div className="flex items-center gap-1.5 overflow-hidden">
+                                                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                                                             {creator.category}
                                                         </span>
                                                         {creator.openToWork && (
-                                                            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-bold shadow-sm leading-none shrink-0">
+                                                            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none shrink-0">
                                                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
                                                                 <span>OPEN TO WORK</span>
-                                                            </div>
+                                                            </span>
                                                         )}
+                                                        <span className="text-xs px-2 py-0.5 rounded-md border border-color bg-card-color text-fill-color/70 font-bold">
+                                                            {creator.language}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
