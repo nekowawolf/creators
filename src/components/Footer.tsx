@@ -55,11 +55,8 @@ export default function Footer() {
             >
                     {/* Layer 1: Default text */}
                     <div className="flex justify-center items-center select-none pointer-events-none">
-                        <h3 className="text-[10vw] font-black text-fill-color opacity-10 mx-2 tracking-tighter">
-                            NWW
-                        </h3>
-                        <h3 className="text-[10vw] font-black text-fill-color opacity-10 mx-2 tracking-tighter">
-                            CREATORS
+                        <h3 className="text-[10vw] font-black text-fill-color opacity-10 tracking-tighter whitespace-nowrap">
+                            NWW CREATORS
                         </h3>
                     </div>
 
@@ -74,11 +71,8 @@ export default function Footer() {
                             WebkitMaskImage: brightMask,
                         }}
                     >
-                        <motion.h3 className="text-[10vw] font-black text-blue-600 mx-2 tracking-tighter">
-                            NWW
-                        </motion.h3>
-                        <motion.h3 className="text-[10vw] font-black text-blue-600 mx-2 tracking-tighter">
-                            CREATORS
+                        <motion.h3 className="text-[10vw] font-black text-blue-600 tracking-tighter whitespace-nowrap">
+                            NWW CREATORS
                         </motion.h3>
                     </motion.div>
 
@@ -93,11 +87,8 @@ export default function Footer() {
                             WebkitMaskImage: glowMask,
                         }}
                     >
-                        <motion.h3 className="text-[10vw] font-black text-blue-500 mx-2 tracking-tighter blur-[12px]">
-                            NWW
-                        </motion.h3>
-                        <motion.h3 className="text-[10vw] font-black text-blue-500 mx-2 tracking-tighter blur-[12px]">
-                            CREATORS
+                        <motion.h3 className="text-[10vw] font-black text-blue-500 tracking-tighter blur-[12px] whitespace-nowrap">
+                            NWW CREATORS
                         </motion.h3>
                     </motion.div>
             </div>
