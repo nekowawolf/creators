@@ -26,7 +26,7 @@ export default function HeroSection() {
                     Discover top creators across Tech, AI, Web3, Design, and more. Filter by niche and language to find exactly who you're looking for.
                 </p>
                 <div className="pt-4 flex justify-center gap-4">
-                    <Link href="/directory" className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-colors text-lg shadow-lg shadow-blue-500/25">
+                    <Link href="/directory" className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-colors text-lg shadow-lg shadow-blue-500/25">
                         Explore Directory
                     </Link>
                 </div>

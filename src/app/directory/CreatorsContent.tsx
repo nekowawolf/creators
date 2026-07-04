@@ -42,8 +42,8 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className={`
-                    flex items-center justify-center gap-2 px-4 h-12 rounded-full text-sm font-medium transition-colors duration-200
-                    ${isOpen || hasActiveFilters ? 'bg-blue-500/20 text-fill-color border border-blue-500/50' : 'card-color text-fill-color/70 hover:text-fill-color border border-color'}
+                    flex items-center justify-center gap-2 px-4 h-12 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer
+                    ${isOpen || hasActiveFilters ? 'bg-blue-500/20 text-fill-color border border-blue-500/50' : 'card-color text-fill-color/70 border border-color hover:!text-[var(--fill-color)] hover:!border-blue-600'}
                 `}
             >
                 <FiFilter className={`w-4 h-4 ${isOpen || hasActiveFilters ? 'text-blue-400' : ''}`} />
@@ -65,7 +65,7 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
                                         setOpenToWorkOnly(!openToWorkOnly);
                                         setIsOpen(false);
                                     }}
-                                    className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors ${openToWorkOnly
+                                    className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${openToWorkOnly
                                             ? 'bg-blue-500/20 text-blue-400 font-medium'
                                             : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
                                         }`}
@@ -91,7 +91,7 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
                                             setSelectedLanguage(lang);
                                             setIsOpen(false);
                                         }}
-                                        className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors ${selectedLanguage === lang
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${selectedLanguage === lang
                                                 ? 'bg-blue-500/20 text-blue-400 font-medium'
                                                 : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
                                             }`}
@@ -223,9 +223,9 @@ function CreatorsContentInner() {
                         <button
                             key={category}
                             onClick={() => setActiveCategory(category)}
-                            className={`px-4 py-2 rounded-full text-sm font-medium leading-none transition-colors duration-200 ${activeCategory === category
+                            className={`px-4 py-2 rounded-full text-sm font-medium leading-none transition-colors duration-200 cursor-pointer ${activeCategory === category
                                     ? 'bg-blue-600 text-white'
-                                    : 'card-color text-fill-color/70 hover:text-fill-color border border-color'
+                                    : 'card-color text-fill-color/70 border border-color hover:!text-[var(--fill-color)] hover:!border-blue-600'
                                 }`}
                         >
                             {category}
@@ -328,11 +328,11 @@ function CreatorsContentInner() {
                 {/* Modal Popup */}
                 {selectedCreator && (
                     <div
-                        className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                        className="cursor-pointer fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
                         onClick={() => setSelectedCreator(null)}
                     >
                         <div
-                            className="glass-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-color shadow-2xl relative"
+                            className="cursor-auto glass-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-color shadow-2xl relative"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
