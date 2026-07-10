@@ -378,9 +378,11 @@ function CreatorsContentInner() {
 
                                 <div className="mb-6">
                                     <h4 className="text-sm font-semibold text-fill-color/50 mb-2 uppercase tracking-wider">About</h4>
-                                    <p className="text-base text-fill-color/80 leading-relaxed">
-                                        {selectedCreator.description}
-                                    </p>
+                                    <div className="max-h-40 overflow-y-auto pr-2">
+                                        <p className="text-base text-fill-color/80 leading-relaxed whitespace-pre-wrap">
+                                            {selectedCreator.description}
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-5 pt-6 mt-auto">
