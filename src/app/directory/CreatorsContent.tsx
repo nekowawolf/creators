@@ -186,6 +186,35 @@ function CreatorsContentInner() {
         }).map(key => ({ key, url: socialsObj[key] }));
     };
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+
+    const onMouseDown = (e: React.MouseEvent) => {
+        setIsDragging(true);
+        if (scrollRef.current) {
+            setStartX(e.pageX - scrollRef.current.offsetLeft);
+            setScrollLeft(scrollRef.current.scrollLeft);
+        }
+    };
+
+    const onMouseLeave = () => {
+        setIsDragging(false);
+    };
+
+    const onMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging || !scrollRef.current) return;
+        e.preventDefault();
+        const x = e.pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX);
+        scrollRef.current.scrollLeft = scrollLeft - walk;
+    };
+
     return (
         <div className="min-h-screen body-color text-fill-color p-8 pt-12 font-sans">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
@@ -218,8 +247,15 @@ function CreatorsContentInner() {
                 </div>
 
                 {/* Categories Buttons */}
-                <div className="relative w-full md:max-w-3xl mb-10 mx-auto">
-                    <div className="flex overflow-x-auto md:flex-wrap gap-2 md:justify-center items-center [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="relative w-full md:max-w-3xl mb-10 mx-auto overflow-hidden">
+                    <div 
+                        ref={scrollRef}
+                        onMouseDown={onMouseDown}
+                        onMouseLeave={onMouseLeave}
+                        onMouseUp={onMouseUp}
+                        onMouseMove={onMouseMove}
+                        className={`flex overflow-x-auto gap-2 items-center md:pb-3 max-md:[&::-webkit-scrollbar]:hidden max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-blue-500/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-blue-500/60 ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'}`}
+                    >
                         {categories.map((category) => (
                             <button
                                 key={category}
@@ -234,8 +270,8 @@ function CreatorsContentInner() {
                             </button>
                         ))}
                     </div>
-                    {/* Mobile fade indicator */}
-                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-blue-600/20 to-transparent pointer-events-none md:hidden" />
+                    {/* Fade indicator */}
+                    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-blue-600/20 to-transparent pointer-events-none" />
                 </div>
 
                 {/* Content Area */}
