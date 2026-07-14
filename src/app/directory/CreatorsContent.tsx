@@ -6,7 +6,7 @@ import { FaTimes, FaYoutube, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTik
 import { FaXTwitter, FaSquareUpwork } from 'react-icons/fa6';
 import { SiFreelancer } from "react-icons/si";
 import { TbBrandFiverr } from "react-icons/tb";
-import { CgSmileNoMouth } from "react-icons/cg";
+import { CgSmileNoMouth, CgClose } from "react-icons/cg";
 import { Spinner } from '@/components/ui/spinner';
 import { FiChevronDown, FiCheck, FiFilter, FiBriefcase } from 'react-icons/fi';
 import { IoLanguageOutline } from "react-icons/io5";
@@ -240,8 +240,20 @@ function CreatorsContentInner() {
                             placeholder="Search Content Creator"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full h-12 pl-12 pr-6 rounded-full card-color border border-color focus:outline-none focus:border-blue-500 text-fill-color placeholder:text-fill-color/50 transition-colors"
+                            className="w-full h-12 pl-12 pr-12 rounded-full card-color border border-color focus:outline-none focus:border-blue-500 text-fill-color placeholder:text-fill-color/50 transition-colors"
                         />
+                        {search && (
+                            <button
+                                onClick={() => {
+                                    setSearch('');
+                                    setCurrentPage(1);
+                                }}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 opacity-70 hover:opacity-100 transition-opacity text-fill-color cursor-pointer"
+                                aria-label="Clear search"
+                            >
+                                <CgClose className="w-5 h-5" />
+                            </button>
+                        )}
                     </div>
                     <FilterDropdown selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} openToWorkOnly={openToWorkOnly} setOpenToWorkOnly={setOpenToWorkOnly} />
                 </div>
