@@ -1,5 +1,6 @@
 'use client';
 
+import NwwOneeAIChat from "@/components/NwwOneeAIChat";
 import { useState, useEffect, useRef, Suspense } from 'react';
 import creatorsData from '@/data/creators.json';
 import { FaTimes, FaYoutube, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTiktok, FaGlobe } from 'react-icons/fa';
@@ -107,6 +108,7 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
                     </div>
                 </div>
             )}
+            <NwwOneeAIChat />
         </div>
     );
 }
