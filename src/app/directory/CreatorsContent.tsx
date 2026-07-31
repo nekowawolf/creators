@@ -1,6 +1,6 @@
 'use client';
 
-import NwwOneeAIChat from "@/components/NwwOneeAIChat";
+import NwwOneeAIChat, { chatStore } from "@/components/NwwOneeAIChat";
 import { useState, useEffect, useRef, Suspense } from 'react';
 import creatorsData from '@/data/creators.json';
 import { FaTimes, FaYoutube, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTiktok, FaGlobe } from 'react-icons/fa';
@@ -8,6 +8,7 @@ import { FaXTwitter, FaSquareUpwork } from 'react-icons/fa6';
 import { SiFreelancer } from "react-icons/si";
 import { TbBrandFiverr } from "react-icons/tb";
 import { CgSmileNoMouth, CgClose } from "react-icons/cg";
+import { CiBookmark } from "react-icons/ci";
 import { Spinner } from '@/components/ui/spinner';
 import { FiChevronDown, FiCheck, FiFilter, FiBriefcase } from 'react-icons/fi';
 import { IoLanguageOutline } from "react-icons/io5";
@@ -296,7 +297,7 @@ function CreatorsContentInner() {
                         onMouseLeave={onMouseLeave}
                         onMouseUp={onMouseUp}
                         onMouseMove={onMouseMove}
-                        className={`flex overflow-x-auto gap-2 items-center md:pb-3 max-md:[&::-webkit-scrollbar]:hidden max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-blue-500/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-blue-500/60 ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'}`}
+                        className={`flex overflow-x-auto gap-2 items-center md:pb-3 max-md:[&::-webkit-scrollbar]:hidden max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[rgba(var(--fill-color-rgb),0.3)] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[rgba(var(--fill-color-rgb),0.5)] ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'}`}
                     >
                         {categories.map((category) => (
                             <button
@@ -356,6 +357,18 @@ function CreatorsContentInner() {
                                                         <h3 className="text-lg font-bold text-fill-color leading-tight truncate">
                                                             {creator.name}
                                                         </h3>
+                                                        <button 
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                e.stopPropagation();
+                                                                chatStore.setIsOpen(true);
+                                                                chatStore.setActiveView('user');
+                                                            }}
+                                                            className="cursor-pointer opacity-70 hover:opacity-100 transition-all text-fill-color shrink-0"
+                                                            title="Bookmark"
+                                                        >
+                                                            <CiBookmark className="w-5 h-5" />
+                                                        </button>
                                                     </div>
                                                     <div className="flex items-center gap-1.5 overflow-hidden">
                                                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
@@ -445,6 +458,18 @@ function CreatorsContentInner() {
                                             <h2 className="text-2xl font-bold text-fill-color leading-tight">
                                                 {selectedCreator.name}
                                             </h2>
+                                            <button 
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    chatStore.setIsOpen(true);
+                                                    chatStore.setActiveView('user');
+                                                }}
+                                                className="cursor-pointer opacity-70 hover:opacity-100 transition-all text-fill-color shrink-0"
+                                                title="Bookmark"
+                                            >
+                                                <CiBookmark className="w-5 h-5" />
+                                            </button>
                                         </div>
                                         <div className="flex gap-2 items-center">
                                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
