@@ -2,7 +2,6 @@
 
 import NwwOneeAIChat, { chatStore } from "@/components/NwwOneeAIChat";
 import { useState, useEffect, useRef, Suspense } from 'react';
-import creatorsData from '@/data/creators.json';
 import { FaTimes, FaYoutube, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTiktok, FaGlobe } from 'react-icons/fa';
 import { FaXTwitter, FaSquareUpwork } from 'react-icons/fa6';
 import { SiFreelancer } from "react-icons/si";
@@ -14,6 +13,7 @@ import { FiChevronDown, FiCheck, FiFilter, FiBriefcase } from 'react-icons/fi';
 import { IoLanguageOutline } from "react-icons/io5";
 import { FallbackImage } from '@/components/FallbackImage';
 import Pagination from '@/components/Pagination';
+import { useCreators } from '@/hooks/useCreators';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -22,7 +22,7 @@ const languages = ['All', 'EN', 'ID', 'CN', 'JP'];
 
 const socialOrder = ['website', 'youtube', 'twitter', 'instagram', 'discord', 'telegram', 'github', 'tiktok', 'fiverr', 'upwork', 'peopleperhour', 'freelancer'];
 
-function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly, setOpenToWorkOnly }: { selectedLanguage: string, setSelectedLanguage: (lang: string) => void, openToWorkOnly: boolean, setOpenToWorkOnly: (val: boolean) => void }) {
+function FilterDropdown({ selectedLanguage, setSelectedLanguage, open_to_workOnly, setOpenToWorkOnly }: { selectedLanguage: string, setSelectedLanguage: (lang: string) => void, open_to_workOnly: boolean, setOpenToWorkOnly: (val: boolean) => void }) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +36,7 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const hasActiveFilters = selectedLanguage !== 'All' || openToWorkOnly;
+    const hasActiveFilters = selectedLanguage !== 'All' || open_to_workOnly;
 
     return (
         <div className="relative inline-block text-left shrink-0" ref={dropdownRef}>
@@ -64,10 +64,10 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
                             <div className="space-y-1">
                                 <button
                                     onClick={() => {
-                                        setOpenToWorkOnly(!openToWorkOnly);
+                                        setOpenToWorkOnly(!open_to_workOnly);
                                         setIsOpen(false);
                                     }}
-                                    className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${openToWorkOnly
+                                    className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${open_to_workOnly
                                             ? 'bg-blue-500/20 text-blue-400 font-medium'
                                             : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
                                         }`}
@@ -75,7 +75,7 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, openToWorkOnly,
                                     <div className="flex items-center gap-2">
                                         <span>Open to Work</span>
                                     </div>
-                                    {openToWorkOnly && <FiCheck className="w-4 h-4" />}
+                                    {open_to_workOnly && <FiCheck className="w-4 h-4" />}
                                 </button>
                             </div>
                         </div>
@@ -118,37 +118,22 @@ function CreatorsContentInner() {
     const [search, setSearch] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedLanguage, setSelectedLanguage] = useState('All');
-    const [openToWorkOnly, setOpenToWorkOnly] = useState(false);
+    const [open_to_workOnly, setOpenToWorkOnly] = useState(false);
 
-    const [loading, setLoading] = useState(true);
+    const { creatorsData, loading, error } = useCreators();
 
-    const [toolsData, setToolsData] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCreator, setSelectedCreator] = useState<any | null>(null);
 
     useEffect(() => {
-        const loadData = () => {
-            setLoading(true);
-            let resultData = [...creatorsData];
-            for (let i = resultData.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [resultData[i], resultData[j]] = [resultData[j], resultData[i]];
-            }
-            setToolsData(resultData);
-            setTimeout(() => setLoading(false), 500);
-        };
-        loadData();
-    }, []);
-
-    useEffect(() => {
         setCurrentPage(1);
-    }, [search, activeCategory, selectedLanguage, openToWorkOnly]);
+    }, [search, activeCategory, selectedLanguage, open_to_workOnly]);
 
-    const filteredCreators = toolsData.filter(c => {
+    const filteredCreators = creatorsData.filter(c => {
         const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase());
         const matchesCategory = activeCategory === 'All' || c.category === activeCategory;
         const matchesLanguage = selectedLanguage === 'All' || c.language === selectedLanguage;
-        const matchesOpenToWork = !openToWorkOnly || c.openToWork === true;
+        const matchesOpenToWork = !open_to_workOnly || c.open_to_work === true;
         return matchesSearch && matchesCategory && matchesLanguage && matchesOpenToWork;
     });
 
@@ -286,7 +271,7 @@ function CreatorsContentInner() {
                             </button>
                         )}
                     </div>
-                    <FilterDropdown selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} openToWorkOnly={openToWorkOnly} setOpenToWorkOnly={setOpenToWorkOnly} />
+                    <FilterDropdown selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} open_to_workOnly={open_to_workOnly} setOpenToWorkOnly={setOpenToWorkOnly} />
                 </div>
 
                 {/* Categories Buttons */}
@@ -321,30 +306,34 @@ function CreatorsContentInner() {
                     />
                 </div>
 
-                {/* Content Area */}
                 {loading ? (
                     <div className="flex justify-center p-12 w-full max-w-7xl">
                         <Spinner className="text-blue-500 size-10" />
                     </div>
                 ) : (
                     <div className="flex flex-col gap-4 w-full items-center">
+                        {error && (
+                            <div className="text-red-500 text-center py-4 bg-red-500/10 rounded-lg border border-red-500/20 w-full max-w-7xl mb-4">
+                                Error loading creators: {error}
+                            </div>
+                        )}
                         {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full max-w-7xl">
                             {displayedCreators.length > 0 ? (
                                 displayedCreators.map(creator => {
-                                    const { id, name, description, imageUrl, category, language, ...socialKeys } = creator;
+                                    const socialKeys = { website: creator.website, ...creator.socials, ...creator.platforms };
                                     const orderedSocials = getOrderedSocials(socialKeys);
 
                                     return (
                                         <div
-                                            key={creator.id}
+                                            key={creator._id}
                                             onClick={() => setSelectedCreator(creator)}
                                             className="glass-card rounded-2xl p-5 flex flex-col h-full card-hover transition-all cursor-pointer relative"
                                         >
                                             <div className="flex gap-4 mb-4">
                                                 <div className="w-16 h-16 relative rounded-xl overflow-hidden bg-card-color shrink-0 border border-color shadow-sm">
                                                     <FallbackImage
-                                                        src={creator.imageUrl}
+                                                        src={creator.image_url}
                                                         alt={creator.name}
                                                         fill
                                                         className="object-cover"
@@ -374,7 +363,7 @@ function CreatorsContentInner() {
                                                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                                                             {creator.category}
                                                         </span>
-                                                        {creator.openToWork && (
+                                                        {creator.open_to_work && (
                                                             <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none shrink-0">
                                                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
                                                                 <span>OPEN TO WORK</span>
@@ -446,7 +435,7 @@ function CreatorsContentInner() {
                                 <div className="flex items-center gap-4 mb-6">
                                     <div className="w-20 h-20 relative rounded-xl overflow-hidden bg-card-color2 shrink-0 border border-color shadow-sm">
                                         <FallbackImage
-                                            src={selectedCreator.imageUrl}
+                                            src={selectedCreator.image_url}
                                             alt={selectedCreator.name}
                                             fill
                                             className="object-cover"
@@ -475,7 +464,7 @@ function CreatorsContentInner() {
                                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                                                 {selectedCreator.category}
                                             </span>
-                                            {selectedCreator.openToWork && (
+                                            {selectedCreator.open_to_work && (
                                                 <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
                                                     <span>OPEN TO WORK</span>
@@ -499,7 +488,7 @@ function CreatorsContentInner() {
 
                                 <div className="flex items-center gap-5 pt-6 mt-auto">
                                     {(() => {
-                                        const { id, name, description, imageUrl, category, language, ...socialKeys } = selectedCreator;
+                                        const socialKeys = { website: selectedCreator.website, ...selectedCreator.socials, ...selectedCreator.platforms };
                                         const orderedSocials = getOrderedSocials(socialKeys);
                                         return orderedSocials.map(social => renderSocialIcon(social.key, social.url));
                                     })()}
