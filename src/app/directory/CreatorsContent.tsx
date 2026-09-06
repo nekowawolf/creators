@@ -115,12 +115,11 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, open_to_workOnl
 }
 
 function CreatorsContentInner() {
-    const [search, setSearch] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedLanguage, setSelectedLanguage] = useState('All');
     const [open_to_workOnly, setOpenToWorkOnly] = useState(false);
 
-    const { creatorsData, loading, error } = useCreators();
+    const { creatorsData, loading, error, search, setSearch, suggestion, handleSuggestionClick } = useCreators();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCreator, setSelectedCreator] = useState<any | null>(null);
@@ -270,6 +269,19 @@ function CreatorsContentInner() {
                                 <CgClose className="w-5 h-5" />
                             </button>
                         )}
+                        
+                        <div className="absolute left-0 top-full pt-1 pl-5 w-full text-left z-10 pointer-events-none">
+                            <div className={`text-xs text-fill-color/70 transition-opacity duration-300 pointer-events-auto ${suggestion ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                Did you mean:{' '}
+                                <button 
+                                    onClick={() => suggestion && handleSuggestionClick(suggestion)} 
+                                    className="font-semibold text-blue-500 hover:underline cursor-pointer"
+                                >
+                                    {suggestion}
+                                </button>
+                                ?
+                            </div>
+                        </div>
                     </div>
                     <FilterDropdown selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} open_to_workOnly={open_to_workOnly} setOpenToWorkOnly={setOpenToWorkOnly} />
                 </div>

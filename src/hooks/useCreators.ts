@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Creator } from '@/types/creators';
 import { fetchCreators } from '@/services/creatorsService';
+import Fuse from 'fuse.js';
 
 let isInitialLoad = true;
 
@@ -8,6 +9,46 @@ export const useCreators = () => {
     const [creatorsData, setCreatorsData] = useState<Creator[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    const [search, setSearch] = useState('');
+    const [suggestion, setSuggestion] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!search || creatorsData.length === 0) {
+            setSuggestion(null);
+            return;
+        }
+
+        const exactMatchExists = creatorsData.some(c => 
+            c.name.toLowerCase().includes(search.toLowerCase())
+        );
+
+        if (exactMatchExists) {
+            setSuggestion(null);
+            return;
+        }
+
+        const fuse = new Fuse(creatorsData, {
+            keys: ['name'],
+            threshold: 0.4,
+        });
+
+        const results = fuse.search(search);
+        if (results.length > 0) {
+            const bestMatch = results[0].item.name;
+            if (bestMatch.toLowerCase() !== search.toLowerCase()) {
+                setSuggestion(bestMatch);
+            } else {
+                setSuggestion(null);
+            }
+        } else {
+            setSuggestion(null);
+        }
+    }, [search, creatorsData]);
+
+    const handleSuggestionClick = (newQuery: string) => {
+        setSearch(newQuery);
+    };
 
     useEffect(() => {
         const loadData = async () => {
@@ -39,6 +80,10 @@ export const useCreators = () => {
     return {
         creatorsData,
         loading,
-        error
+        error,
+        search,
+        setSearch,
+        suggestion,
+        handleSuggestionClick
     };
 };
