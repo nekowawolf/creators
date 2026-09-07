@@ -7,6 +7,7 @@ import { FaXTwitter, FaSquareUpwork } from 'react-icons/fa6';
 import { SiFreelancer } from "react-icons/si";
 import { TbBrandFiverr } from "react-icons/tb";
 import { CgSmileNoMouth, CgClose } from "react-icons/cg";
+import { GoSearch } from "react-icons/go";
 import { CiBookmark } from "react-icons/ci";
 import { Spinner } from '@/components/ui/spinner';
 import { FiChevronDown, FiCheck, FiFilter, FiBriefcase } from 'react-icons/fi';
@@ -244,18 +245,14 @@ function CreatorsContentInner() {
 
                 {/* Search Bar & Language Filter */}
                 <div className="w-full max-w-2xl mb-6 flex gap-3">
-                    <div className="relative flex-grow">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-fill-color/50">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                            </svg>
-                        </div>
+                    <div className="relative flex-grow search-container">
+                        <GoSearch className="search-icon absolute left-4 top-1/2 -translate-y-1/2 text-fill-color w-5 h-5" />
                         <input
                             type="text"
                             placeholder="Search Content Creator"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full h-12 pl-12 pr-12 rounded-full card-color border border-color focus:outline-none focus:border-blue-500 text-fill-color placeholder:text-fill-color/50 transition-colors"
+                            className="w-full h-12 pl-12 pr-12 rounded-full card-color border border-color text-fill-color placeholder:text-fill-color/50 transition-colors custom-search-focus"
                         />
                         {search && (
                             <button
