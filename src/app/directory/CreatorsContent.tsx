@@ -69,8 +69,8 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, open_to_workOnl
                                         setIsOpen(false);
                                     }}
                                     className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${open_to_workOnly
-                                            ? 'bg-blue-500/20 text-blue-400 font-medium'
-                                            : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
+                                        ? 'bg-blue-500/20 text-blue-400 font-medium'
+                                        : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
                                         }`}
                                 >
                                     <div className="flex items-center gap-2">
@@ -95,8 +95,8 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, open_to_workOnl
                                             setIsOpen(false);
                                         }}
                                         className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${selectedLanguage === lang
-                                                ? 'bg-blue-500/20 text-blue-400 font-medium'
-                                                : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
+                                            ? 'bg-blue-500/20 text-blue-400 font-medium'
+                                            : 'text-fill-color/70 hover:bg-[rgba(var(--fill-color-rgb),0.1)] hover:text-fill-color'
                                             }`}
                                     >
                                         <div className="flex items-center gap-2">
@@ -191,13 +191,13 @@ function CreatorsContentInner() {
         };
 
         const timeoutId = setTimeout(checkOverflow, 50);
-        
+
         window.addEventListener('resize', checkOverflow);
         const scrollElement = scrollRef.current;
         if (scrollElement) {
             scrollElement.addEventListener('scroll', checkOverflow);
         }
-        
+
         return () => {
             clearTimeout(timeoutId);
             window.removeEventListener('resize', checkOverflow);
@@ -266,12 +266,12 @@ function CreatorsContentInner() {
                                 <CgClose className="w-5 h-5" />
                             </button>
                         )}
-                        
+
                         <div className="absolute left-0 top-full pt-1 pl-5 w-full text-left z-10 pointer-events-none">
                             <div className={`text-xs text-fill-color/70 transition-opacity duration-300 pointer-events-auto ${suggestion ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                                 Did you mean:{' '}
-                                <button 
-                                    onClick={() => suggestion && handleSuggestionClick(suggestion)} 
+                                <button
+                                    onClick={() => suggestion && handleSuggestionClick(suggestion)}
                                     className="font-semibold text-blue-500 hover:underline cursor-pointer"
                                 >
                                     {suggestion}
@@ -285,7 +285,7 @@ function CreatorsContentInner() {
 
                 {/* Categories Buttons */}
                 <div className="relative w-full md:max-w-3xl mb-10 mx-auto overflow-hidden">
-                    <div 
+                    <div
                         ref={scrollRef}
                         onMouseDown={onMouseDown}
                         onMouseLeave={onMouseLeave}
@@ -297,18 +297,17 @@ function CreatorsContentInner() {
                             <button
                                 key={category}
                                 onClick={() => setActiveCategory(category)}
-                                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium leading-none transition-colors duration-200 cursor-pointer ${
-                                    activeCategory === category
-                                        ? 'bg-blue-600 text-white'
-                                        : 'card-color text-fill-color/70 border border-color hover:!text-[var(--fill-color)] hover:!border-blue-600'
-                                }`}
+                                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium leading-none transition-colors duration-200 cursor-pointer ${activeCategory === category
+                                    ? 'bg-blue-600 text-white'
+                                    : 'card-color text-fill-color/70 border border-color hover:!text-[var(--fill-color)] hover:!border-blue-600'
+                                    }`}
                             >
                                 {category}
                             </button>
                         ))}
                     </div>
                     {/* Fade indicator */}
-                    <div 
+                    <div
                         ref={fadeRef}
                         className="absolute right-0 top-0 h-8 w-12 bg-gradient-to-l from-blue-600/20 to-transparent pointer-events-none transition-opacity duration-200"
                         style={{ opacity: 0, visibility: 'hidden' }}
@@ -337,8 +336,22 @@ function CreatorsContentInner() {
                                         <div
                                             key={creator._id}
                                             onClick={() => setSelectedCreator(creator)}
-                                            className="glass-card rounded-2xl p-5 flex flex-col h-full card-hover transition-all cursor-pointer relative"
+                                            className="glass-card rounded-2xl p-5 flex flex-col h-full card-hover transition-all cursor-pointer relative group hover:border-blue-500/40"
                                         >
+                                            {/* Bookmark */}
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    chatStore.setIsOpen(true);
+                                                    chatStore.setActiveView('user');
+                                                }}
+                                                className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-[rgba(var(--fill-color-rgb),0.06)] border border-color text-fill-color opacity-60 group-hover:opacity-100 hover:!bg-blue-500/20 hover:!text-blue-400 hover:!border-blue-500/40 transition-all cursor-pointer"
+                                                title="Bookmark"
+                                            >
+                                                <CiBookmark className="w-[18px] h-[18px]" />
+                                            </button>
+
                                             <div className="flex gap-4 mb-4">
                                                 <div className="w-16 h-16 relative rounded-xl overflow-hidden bg-card-color shrink-0 border border-color shadow-sm">
                                                     <FallbackImage
@@ -350,37 +363,20 @@ function CreatorsContentInner() {
                                                     />
                                                 </div>
 
-                                                <div className="flex flex-col flex-grow min-w-0 justify-center py-0.5">
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <h3 className="text-lg font-bold text-fill-color leading-tight truncate">
-                                                            {creator.name}
-                                                        </h3>
-                                                        <button 
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                e.stopPropagation();
-                                                                chatStore.setIsOpen(true);
-                                                                chatStore.setActiveView('user');
-                                                            }}
-                                                            className="cursor-pointer opacity-70 hover:opacity-100 transition-all text-fill-color shrink-0"
-                                                            title="Bookmark"
-                                                        >
-                                                            <CiBookmark className="w-5 h-5" />
-                                                        </button>
-                                                    </div>
-                                                    <div className="flex items-center gap-1.5 overflow-hidden">
-                                                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                                <div className="flex flex-col flex-grow min-w-0 justify-center py-0.5 pr-10">
+                                                    <h3 className="text-lg font-bold text-fill-color leading-tight truncate mb-2">
+                                                        {creator.name}
+                                                    </h3>
+                                                    <div className="flex flex-wrap items-center gap-1.5 overflow-hidden">
+                                                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 shrink-0">
                                                             {creator.category}
                                                         </span>
                                                         {creator.open_to_work && (
                                                             <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none shrink-0">
                                                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
-                                                                <span>OPEN TO WORK</span>
+                                                                <span className="mt-[1px]">OPEN TO WORK</span>
                                                             </span>
                                                         )}
-                                                        <span className="text-xs px-2 py-0.5 rounded-md border border-color bg-card-color text-fill-color/70 font-bold">
-                                                            {creator.language}
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -389,8 +385,21 @@ function CreatorsContentInner() {
                                                 {creator.description}
                                             </p>
 
-                                            <div className="flex items-center gap-4 mt-auto pt-4">
-                                                {orderedSocials.map(social => renderSocialIcon(social.key, social.url))}
+                                            {/* Footer */}
+                                            <div className="flex items-center justify-between gap-3 mt-auto pt-4 border-t border-[rgba(var(--fill-color-rgb),0.08)]">
+                                                <div className="flex items-center gap-4 min-w-0 overflow-hidden">
+                                                    {orderedSocials.slice(0, 4).map(social => renderSocialIcon(social.key, social.url))}
+                                                    {orderedSocials.length > 4 && (
+                                                        <span className="text-[10px] px-2 py-0.5 rounded-md border border-color bg-card-color text-fill-color/70 font-bold shrink-0">
+                                                            +{orderedSocials.length - 4}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {/* Language */}
+                                                <span className="flex items-center gap-1.5 text-xs font-semibold text-fill-color/50 shrink-0">
+                                                    <IoLanguageOutline className="w-3.5 h-3.5" />
+                                                    {creator.language}
+                                                </span>
                                             </div>
                                         </div>
                                     );
@@ -433,12 +442,29 @@ function CreatorsContentInner() {
                             className="cursor-auto glass-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-color shadow-2xl relative"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <button
-                                onClick={() => setSelectedCreator(null)}
-                                className="absolute top-4 right-4 opacity-70 hover:opacity-100 transition-opacity text-fill-color z-10"
-                            >
-                                <FaTimes size={20} />
-                            </button>
+                            {/* Top Right Actions */}
+                            <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+                                {/* Bookmark */}
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        chatStore.setIsOpen(true);
+                                        chatStore.setActiveView('user');
+                                    }}
+                                    className="w-9 h-9 flex items-center justify-center rounded-full bg-[rgba(var(--fill-color-rgb),0.06)] border border-color text-fill-color opacity-70 hover:opacity-100 hover:!bg-blue-500/20 hover:!text-blue-400 hover:!border-blue-500/40 transition-all cursor-pointer"
+                                    title="Bookmark"
+                                >
+                                    <CiBookmark className="w-[18px] h-[18px]" />
+                                </button>
+                                {/* Close */}
+                                <button
+                                    onClick={() => setSelectedCreator(null)}
+                                    className="w-9 h-9 flex items-center justify-center rounded-full bg-[rgba(var(--fill-color-rgb),0.06)] border border-color text-fill-color opacity-70 hover:opacity-100 transition-all cursor-pointer"
+                                >
+                                    <FaTimes size={14} />
+                                </button>
+                            </div>
 
                             <div className="p-6 sm:p-8">
                                 <div className="flex items-center gap-4 mb-6">
@@ -451,37 +477,22 @@ function CreatorsContentInner() {
                                             unoptimized
                                         />
                                     </div>
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-2 pr-8">
+                                    <div className="pr-20">
+                                        <div className="flex items-center gap-2 mb-2">
                                             <h2 className="text-2xl font-bold text-fill-color leading-tight">
                                                 {selectedCreator.name}
                                             </h2>
-                                            <button 
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                    chatStore.setIsOpen(true);
-                                                    chatStore.setActiveView('user');
-                                                }}
-                                                className="cursor-pointer opacity-70 hover:opacity-100 transition-all text-fill-color shrink-0"
-                                                title="Bookmark"
-                                            >
-                                                <CiBookmark className="w-5 h-5" />
-                                            </button>
                                         </div>
-                                        <div className="flex gap-2 items-center">
+                                        <div className="flex gap-2 items-center flex-wrap">
                                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                                                 {selectedCreator.category}
                                             </span>
                                             {selectedCreator.open_to_work && (
-                                                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none">
+                                                <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none shrink-0">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
-                                                    <span>OPEN TO WORK</span>
+                                                    <span className="mt-[1px]">OPEN TO WORK</span>
                                                 </span>
                                             )}
-                                            <span className="text-xs px-2 py-0.5 rounded-md border border-color bg-card-color text-fill-color/70 font-bold">
-                                                {selectedCreator.language}
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -495,12 +506,53 @@ function CreatorsContentInner() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-5 pt-6 mt-auto">
-                                    {(() => {
-                                        const socialKeys = { website: selectedCreator.website, ...selectedCreator.socials, ...selectedCreator.platforms };
-                                        const orderedSocials = getOrderedSocials(socialKeys);
-                                        return orderedSocials.map(social => renderSocialIcon(social.key, social.url));
-                                    })()}
+                                {/* Footer */}
+                                <div className="flex items-center justify-between gap-3 pt-4 mt-auto border-t border-[rgba(var(--fill-color-rgb),0.08)]">
+                                    <div className="relative flex-grow min-w-0 overflow-hidden">
+                                        <div
+                                            className="flex items-center gap-4 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden"
+                                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                                            ref={(el) => {
+                                                if (el) {
+                                                    const fade = el.nextElementSibling as HTMLElement;
+                                                    if (fade) {
+                                                        const checkOverflow = () => {
+                                                            const hasMore = Math.ceil(el.scrollLeft + el.clientWidth) < el.scrollWidth - 1;
+                                                            fade.style.opacity = hasMore ? '1' : '0';
+                                                            fade.style.visibility = hasMore ? 'visible' : 'hidden';
+                                                        };
+                                                        checkOverflow();
+                                                        setTimeout(checkOverflow, 50);
+                                                    }
+                                                }
+                                            }}
+                                            onScroll={(e) => {
+                                                const target = e.currentTarget;
+                                                const fade = target.nextElementSibling as HTMLElement;
+                                                if (fade) {
+                                                    const hasMore = Math.ceil(target.scrollLeft + target.clientWidth) < target.scrollWidth - 1;
+                                                    fade.style.opacity = hasMore ? '1' : '0';
+                                                    fade.style.visibility = hasMore ? 'visible' : 'hidden';
+                                                }
+                                            }}
+                                        >
+                                            {(() => {
+                                                const socialKeys = { website: selectedCreator.website, ...selectedCreator.socials, ...selectedCreator.platforms };
+                                                const orderedSocials = getOrderedSocials(socialKeys);
+                                                return orderedSocials.map(social => renderSocialIcon(social.key, social.url));
+                                            })()}
+                                        </div>
+                                        {/* Fade indicator for mobile scrolling */}
+                                        <div
+                                            className="absolute right-0 top-0 bottom-1 w-12 pointer-events-none transition-opacity duration-200 md:hidden bg-gradient-to-l from-blue-600/20 to-transparent"
+                                            style={{ opacity: 0, visibility: 'hidden' }}
+                                        />
+                                    </div>
+                                    {/* Language */}
+                                    <span className="flex items-center gap-1.5 text-xs font-semibold text-fill-color/50 shrink-0">
+                                        <IoLanguageOutline className="w-3.5 h-3.5" />
+                                        {selectedCreator.language}
+                                    </span>
                                 </div>
                             </div>
                         </div>
