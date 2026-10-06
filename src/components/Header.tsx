@@ -10,22 +10,12 @@ import { AiOutlineLink } from 'react-icons/ai';
 import { toggleDarkMode } from '@/utils/darkmode';
 
 export default function Header() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const pathname = usePathname();
   
   const isActive = (path: string) => pathname === path || pathname?.startsWith(`${path}/`);
-
-  useEffect(() => {
-    setMounted(true);
-    const current =
-      typeof window !== 'undefined' &&
-      localStorage.getItem('darkmode') === 'active';
-    setIsDarkMode(current);
-  }, []);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -60,7 +50,6 @@ export default function Header() {
 
   const onToggleTheme = () => {
     toggleDarkMode();
-    setIsDarkMode((v) => !v);
   };
 
   return (
@@ -134,7 +123,7 @@ export default function Header() {
                 <AiOutlineLink />
               </Link>
               <Link
-                href="https://github.com/nekowawolf/" target="_blank"
+                href="https://github.com/nekowawolf/creators" target="_blank"
                 className="card-color w-9 h-9 text-fill-color rounded-full border border-color hidden sm:flex items-center justify-center hover:opacity-80"
               >
                 <FaGithub />
@@ -145,12 +134,8 @@ export default function Header() {
                 onClick={onToggleTheme}
                 className="card-color w-9 h-9 text-fill-color rounded-full border border-color flex items-center justify-center text-lg hover:opacity-80 cursor-pointer"
               >
-                {mounted && (
-                    <>
-                        <FaSun className="theme-icon-sun" />
-                        <FaMoon className="theme-icon-moon" />
-                    </>
-                )}
+                <FaSun className="theme-icon-sun" />
+                <FaMoon className="theme-icon-moon" />
               </button>
 
               <button
@@ -206,7 +191,7 @@ export default function Header() {
                 <AiOutlineLink />
               </Link>
               <Link
-                href="https://github.com/nekowawolf/" target="_blank"
+                href="https://github.com/nekowawolf/creators" target="_blank"
                 className="card-color w-9 h-9 text-fill-color rounded-full border border-color flex items-center justify-center"
               >
                 <FaGithub />

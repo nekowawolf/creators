@@ -1,4 +1,4 @@
-import { Creator } from '@/types/creators';
+import { Creator, CreatorSubmissionPayload } from '@/types/creators';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -15,7 +15,7 @@ export const fetchCreators = async (forceShuffle: boolean = false): Promise<Crea
         const data = await response.json();
         const fetchedData = Array.isArray(data) ? data : (data.data || []);
 
-        let resultData: Creator[] = fetchedData;
+        const resultData: Creator[] = fetchedData;
 
         if (typeof sessionStorage !== 'undefined') {
             const cachedOrderStr = sessionStorage.getItem('creatorsOrder');
@@ -46,4 +46,21 @@ export const fetchCreators = async (forceShuffle: boolean = false): Promise<Crea
         console.error('Error fetching creators:', error);
         throw error;
     }
+};
+
+export const submitCreator = async (payload: CreatorSubmissionPayload) => {
+    const response = await fetch(`${API_BASE_URL}/creator-submissions`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || errorData.message || 'Failed to submit creator');
+    }
+
+    return response.json();
 };

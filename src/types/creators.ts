@@ -1,3 +1,8 @@
+export interface AddedByInfo {
+    name: string;
+    url?: string;
+}
+
 export interface Creator {
     _id: string;
     name: string;
@@ -22,5 +27,13 @@ export interface Creator {
         peopleperhour?: string;
         freelancer?: string;
     };
+    added_by?: AddedByInfo;
     created_at?: string;
+}
+
+export interface CreatorSubmissionPayload {
+    website: string;
+    name: string;
+    link: string;
+    turnstile_token: string;
 }
