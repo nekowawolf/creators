@@ -76,7 +76,7 @@ export default function AddCreatorClient() {
     }, [website, existingUrls]);
 
     const websiteError = website.trim() && !isValidHttpUrl(website.trim())
-        ? 'Link must be a valid URL starting with https://'
+        ? 'Social Media must be a valid URL starting with https://'
         : null;
 
     const handleWebsiteChange = (value: string) => {
@@ -94,11 +94,11 @@ export default function AddCreatorClient() {
         const trimmedLink = link.trim();
 
         if (!trimmedWebsite) {
-            toast.error('Link is required.');
+            toast.error('Social Media is required.');
             return;
         }
         if (!isValidHttpUrl(trimmedWebsite)) {
-            toast.error('Invalid Link URL format.');
+            toast.error('Invalid Social Media URL format.');
             return;
         }
         if (urlExists || existingUrls.includes(normalizeUrl(trimmedWebsite))) {
@@ -150,7 +150,7 @@ export default function AddCreatorClient() {
                         /add-creator
                     </h1>
                     <p className="text-fill-color/60 text-sm max-w-full sm:max-w-xl leading-relaxed">
-                        Know a content creator who belongs here? Submit their official website or profile and help us grow the Creators directory.
+                        Know a content creator who belongs here? Submit its URL and help grow the ecosystem directory. Every submission is reviewed before publishing.
                     </p>
                 </div>
 
@@ -158,7 +158,7 @@ export default function AddCreatorClient() {
                     <div className="flex flex-col space-y-2">
                         <div className="flex items-center gap-2">
                             <label htmlFor="creator-website" className="text-sm font-semibold text-fill-color">
-                                Link <span className="text-red-500">*</span>
+                                Social Media <span className="text-red-500">*</span>
                             </label>
                             {isCheckingUrl && <Spinner className="w-3.5 h-3.5 text-blue-500" />}
                             {!isCheckingUrl && urlExists !== null && (
@@ -170,7 +170,7 @@ export default function AddCreatorClient() {
                                     )}
                                     <button
                                         type="button"
-                                        aria-label="Show Link availability details"
+                                        aria-label="Show social media URL availability details"
                                         onClick={() => setShowTooltip((visible) => !visible)}
                                         className="cursor-pointer text-fill-color/50 hover:text-fill-color transition-colors"
                                     >
@@ -189,7 +189,7 @@ export default function AddCreatorClient() {
                             type="url"
                             value={website}
                             onChange={(event) => handleWebsiteChange(event.target.value)}
-                            placeholder="https://creator.example.com"
+                            placeholder="https://www.youtube.com/@creator"
                             autoComplete="url"
                             className={`w-full px-4 py-3 bg-[rgba(var(--fill-color-rgb),0.03)] border rounded-xl text-fill-color focus:outline-none transition-colors ${
                                 websiteError || urlExists === true
@@ -219,7 +219,7 @@ export default function AddCreatorClient() {
 
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="contributor-link" className="text-sm font-semibold text-fill-color">
-                            Link <span className="text-fill-color/40 font-normal">(optional)</span>
+                            Contributor link <span className="text-fill-color/40 font-normal">(optional)</span>
                         </label>
                         <input
                             id="contributor-link"
