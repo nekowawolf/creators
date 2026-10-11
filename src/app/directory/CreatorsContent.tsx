@@ -369,7 +369,7 @@ function CreatorsContentInner() {
                                                     </h3>
                                                     <div className="flex flex-wrap items-center gap-1.5 overflow-hidden">
                                                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 shrink-0">
-                                                            {creator.category}
+                                                            <span className="relative top-px">{creator.category}</span>
                                                         </span>
                                                         {creator.open_to_work && (
                                                             <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none shrink-0">
@@ -391,7 +391,7 @@ function CreatorsContentInner() {
                                                     {orderedSocials.slice(0, 4).map(social => renderSocialIcon(social.key, social.url))}
                                                     {orderedSocials.length > 4 && (
                                                         <span className="text-[10px] px-2 py-0.5 rounded-md border border-color bg-card-color text-fill-color/70 font-bold shrink-0">
-                                                            +{orderedSocials.length - 4}
+                                                            <span className="relative top-px">+{orderedSocials.length - 4}</span>
                                                         </span>
                                                     )}
                                                 </div>
@@ -485,7 +485,7 @@ function CreatorsContentInner() {
                                         </div>
                                         <div className="flex gap-2 items-center flex-wrap">
                                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                                                {selectedCreator.category}
+                                                <span className="relative top-px">{selectedCreator.category}</span>
                                             </span>
                                             {selectedCreator.open_to_work && (
                                                 <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold leading-none shrink-0">
