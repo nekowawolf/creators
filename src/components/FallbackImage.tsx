@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-export const FALLBACK_IMAGE_URL = 'https://cdn.nekowawolf.xyz/image/2026/1787424585_image-unavailable.webp';
+export const FALLBACK_IMAGE_URL = 'https://cdn.nekowawolf.xyz/image/2026/1792883843_image-unavailable.webp';
 
 export interface FallbackImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     fill?: boolean;
