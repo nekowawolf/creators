@@ -244,8 +244,8 @@ function CreatorsContentInner() {
                 </div>
 
                 {/* Search Bar & Language Filter */}
-                <div className="w-full max-w-2xl mb-6 flex gap-3">
-                    <div className="relative flex-grow search-container">
+                <div className="relative w-full max-w-2xl mb-6 flex gap-3">
+                    <div className="relative min-w-0 flex-1 search-container">
                         <GoSearch className="search-icon absolute left-4 top-1/2 -translate-y-1/2 text-fill-color w-5 h-5" />
                         <input
                             type="text"
@@ -267,20 +267,23 @@ function CreatorsContentInner() {
                             </button>
                         )}
 
-                        <div className="absolute left-0 top-full pt-1 pl-5 w-full text-left z-10 pointer-events-none">
-                            <div className={`text-xs text-fill-color/70 transition-opacity duration-300 pointer-events-auto ${suggestion ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                                Did you mean:{' '}
-                                <button
-                                    onClick={() => suggestion && handleSuggestionClick(suggestion)}
-                                    className="font-semibold text-blue-500 hover:underline cursor-pointer"
-                                >
-                                    {suggestion}
-                                </button>
-                                ?
-                            </div>
-                        </div>
                     </div>
                     <FilterDropdown selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} open_to_workOnly={open_to_workOnly} setOpenToWorkOnly={setOpenToWorkOnly} />
+                    <div className="absolute left-0 top-full pt-1 pl-5 w-full text-left z-10 pointer-events-none">
+                        <div role="status" className={`flex items-baseline whitespace-nowrap text-xs text-fill-color/70 transition-opacity duration-300 pointer-events-auto ${suggestion ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                            <span className="shrink-0 mr-1">Did you mean:</span>
+                            <button
+                                type="button"
+                                disabled={!suggestion}
+                                title={suggestion ?? undefined}
+                                onClick={() => suggestion && handleSuggestionClick(suggestion)}
+                                className="min-w-0 truncate font-semibold text-blue-500 hover:underline cursor-pointer"
+                            >
+                                {suggestion}
+                            </button>
+                            <span className="shrink-0">?</span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Categories Buttons */}
