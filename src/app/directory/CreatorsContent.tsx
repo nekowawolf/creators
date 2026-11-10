@@ -1,7 +1,8 @@
 'use client';
 
 import NwwOneeAIChat, { chatStore } from "@/components/NwwOneeAIChat";
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { FaTimes, FaYoutube, FaInstagram, FaGithub, FaDiscord, FaTelegram, FaTiktok, FaGlobe } from 'react-icons/fa';
 import { FaXTwitter, FaSquareUpwork } from 'react-icons/fa6';
 import { SiFreelancer } from "react-icons/si";
@@ -116,6 +117,9 @@ function FilterDropdown({ selectedLanguage, setSelectedLanguage, open_to_workOnl
 }
 
 function CreatorsContentInner() {
+    const searchParams = useSearchParams();
+    const targetId = searchParams.get('id');
+
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedLanguage, setSelectedLanguage] = useState('All');
     const [open_to_workOnly, setOpenToWorkOnly] = useState(false);
@@ -126,16 +130,49 @@ function CreatorsContentInner() {
     const [selectedCreator, setSelectedCreator] = useState<any | null>(null);
 
     useEffect(() => {
+        if (targetId && creatorsData.length > 0) {
+            const found = creatorsData.find(c => c._id === targetId);
+            if (found) {
+                setSelectedCreator(found);
+            }
+        }
+    }, [targetId, creatorsData]);
+
+    const handleCloseModal = () => {
+        setSelectedCreator(null);
+        if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            if (url.searchParams.has('id')) {
+                url.searchParams.delete('id');
+                window.history.replaceState(null, '', url.pathname + (url.search ? url.search : ''));
+            }
+        }
+    };
+
+    useEffect(() => {
         setCurrentPage(1);
     }, [search, activeCategory, selectedLanguage, open_to_workOnly]);
 
-    const filteredCreators = creatorsData.filter(c => {
-        const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase());
-        const matchesCategory = activeCategory === 'All' || c.category === activeCategory;
-        const matchesLanguage = selectedLanguage === 'All' || c.language === selectedLanguage;
-        const matchesOpenToWork = !open_to_workOnly || c.open_to_work === true;
-        return matchesSearch && matchesCategory && matchesLanguage && matchesOpenToWork;
-    });
+    const filteredCreators = useMemo(() => {
+        const filtered = creatorsData.filter(c => {
+            const matchesId = targetId ? c._id === targetId : false;
+            const matchesSearch = matchesId || c.name.toLowerCase().includes(search.toLowerCase());
+            const matchesCategory = matchesId || activeCategory === 'All' || c.category === activeCategory;
+            const matchesLanguage = matchesId || selectedLanguage === 'All' || c.language === selectedLanguage;
+            const matchesOpenToWork = matchesId || !open_to_workOnly || c.open_to_work === true;
+            return matchesSearch && matchesCategory && matchesLanguage && matchesOpenToWork;
+        });
+
+        if (targetId) {
+            const targetIdx = filtered.findIndex(c => c._id === targetId);
+            if (targetIdx > 0) {
+                const [targetItem] = filtered.splice(targetIdx, 1);
+                filtered.unshift(targetItem);
+            }
+        }
+
+        return filtered;
+    }, [creatorsData, search, activeCategory, selectedLanguage, open_to_workOnly, targetId]);
 
     const totalItems = filteredCreators.length;
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
@@ -439,7 +476,7 @@ function CreatorsContentInner() {
                 {selectedCreator && (
                     <div
                         className="cursor-pointer fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-                        onClick={() => setSelectedCreator(null)}
+                        onClick={handleCloseModal}
                     >
                         <div
                             className="cursor-auto glass-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-color shadow-2xl relative"
@@ -462,7 +499,7 @@ function CreatorsContentInner() {
                                 </button>
                                 {/* Close */}
                                 <button
-                                    onClick={() => setSelectedCreator(null)}
+                                    onClick={handleCloseModal}
                                     className="w-9 h-9 flex items-center justify-center rounded-full bg-[rgba(var(--fill-color-rgb),0.06)] border border-color text-fill-color opacity-70 hover:opacity-100 transition-all cursor-pointer"
                                 >
                                     <FaTimes size={14} />

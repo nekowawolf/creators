@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Creator } from '@/types/creators';
 import { fetchCreators } from '@/services/creatorsService';
 import Fuse from 'fuse.js';
@@ -6,12 +7,18 @@ import Fuse from 'fuse.js';
 let isInitialLoad = true;
 
 export const useCreators = () => {
+    const searchParams = useSearchParams();
     const [creatorsData, setCreatorsData] = useState<Creator[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(searchParams.get('search') || searchParams.get('q') || '');
     const [suggestion, setSuggestion] = useState<string | null>(null);
+
+    useEffect(() => {
+        const query = searchParams.get('search') || searchParams.get('q') || '';
+        setSearch(query);
+    }, [searchParams]);
 
     useEffect(() => {
         if (!search || creatorsData.length === 0) {
